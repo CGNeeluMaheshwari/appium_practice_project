@@ -4,9 +4,9 @@ pipeline {
     environment {
         VENV_DIR = 'venv'
         REPORT_FILE = 'report.html'
-        DEVICE_NAME = 'Android Emulator' // Customize as needed
+        DEVICE_NAME = 'Android Emulator'
         PLATFORM_NAME = 'Android'
-        APP_PATH = 'C:/Users/nmaheshw/app/mda-2.2.0-25.apk' // Update with actual path
+        APP_PATH = 'C:/Users/nmaheshw/app/mda-2.2.0-25.apk'
     }
 
     stages {
@@ -18,9 +18,9 @@ pipeline {
 
         stage('Setup Python Environment') {
             steps {
-                sh '''
-                    python3 -m venv $VENV_DIR
-                    source $VENV_DIR/bin/activate
+                bat '''
+                    python -m venv venv
+                    call venv\\Scripts\\activate
                     pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
@@ -29,26 +29,26 @@ pipeline {
 
         stage('Start Appium Server') {
             steps {
-                sh '''
-                    nohup appium > appium.log 2>&1 &
-                    sleep 10
+                bat '''
+                    start /B appium > appium.log 2>&1
+                    timeout /T 10
                 '''
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    source $VENV_DIR/bin/activate
-                    pytest tests/ --html=$REPORT_FILE --self-contained-html -n auto
+                bat '''
+                    call venv\\Scripts\\activate
+                    pytest tests/ --html=%REPORT_FILE% --self-contained-html -n auto
                 '''
             }
         }
 
         stage('Stop Appium Server') {
             steps {
-                sh '''
-                    kill $(lsof -t -i:4723)
+                bat '''
+                    taskkill /F /IM node.exe
                 '''
             }
         }
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 publishHTML([
                     reportDir: '.',
-                    reportFiles: "$REPORT_FILE",
+                    reportFiles: "${env.REPORT_FILE}",
                     reportName: 'Test Report'
                 ])
             }
@@ -67,7 +67,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            sh 'rm -rf $VENV_DIR'
+            bat 'rmdir /S /Q venv'
         }
     }
 }
