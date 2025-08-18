@@ -3,6 +3,6 @@
   "deviceName": "ZF6224GFW3",
   "app": "C:/Users/nmaheshw/app/mda-2.2.0-25.apk",
   "automationName": "UiAutomator2",
-  "ignoreHiddenApiPolicyError": True
+  "ignoreHiddenApiPolicyError": "True"
 
 }
