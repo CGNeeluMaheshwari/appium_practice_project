@@ -1,3 +1,4 @@
+import allure
 import json
 import pytest
 import subprocess
@@ -61,3 +62,21 @@ def driver(request):
     driver.quit()
     stop_appium_server()
     stop_emulator()
+
+
+# Hook to capture screenshot on test failure
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        driver = getattr(item.instance, "driver", None)
+        if driver:
+            screenshot_dir = os.path.join("allure-results","screenshots")
+            os.makedirs(screenshot_dir, exist_ok=True)
+            screenshot_path = os.path.join(screenshot_dir, f"{item.name}.png")
+            driver.save_screenshot(screenshot_path)
+            print(f"\nScreenshot saved to {screenshot_path}")
+
+            allure.attach.file(screenshot_path,name="Screenshot on failure", attachment_type=allure.attachment_type.PNG)
