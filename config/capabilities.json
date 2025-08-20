@@ -1,6 +1,6 @@
 {
   "platformName": "Android",
-  "deviceName": "ZF6224GFW3",
+  "deviceName": "emulator-5556",
   "app": "C:/Users/nmaheshw/app/mda-2.2.0-25.apk",
   "automationName": "UiAutomator2"
 }

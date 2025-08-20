@@ -12,10 +12,9 @@ class LoginPage:
         self.username_field = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/nameET")
         self.password_field = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/passwordET")
         self.login_button = (AppiumBy.ACCESSIBILITY_ID, "Tap to login with given credentials")
-        self.twitter = (AppiumBy.ACCESSIBILITY_ID, "test-Twitter"),
-        self.facebook = (AppiumBy.ACCESSIBILITY_ID, "test-Facebook"),
-        self.linkedIn = (AppiumBy.ACCESSIBILITY_ID, "test-LinkedIn")
-
+        self.twitter = (AppiumBy.ACCESSIBILITY_ID, "Twitter")
+        self.facebook = (AppiumBy.ACCESSIBILITY_ID, "Facebook")
+        self.linkedIn = (AppiumBy.ACCESSIBILITY_ID, "LinkedIn")
 
     def open_login_menu(self):
         self.driver.find_element(*self.menu_button).click()

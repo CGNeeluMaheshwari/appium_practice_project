@@ -26,19 +26,3 @@ class BaseTest:
             f'new UiScrollable(new UiSelector().scrollable(true)).'
             f'scrollIntoView(new UiSelector().description("{accessibility_id}"))'
         )
-
-
-# import json
-# import pytest
-# from appium import webdriver
-#
-#
-# @pytest.fixture(scope="class")
-# def init_driver(request):
-#     with open("config/capabilities.json") as f:
-#         caps = json.load(f)
-#     driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
-#     request.cls.driver = driver
-#     yield
-#     driver.quit()
-

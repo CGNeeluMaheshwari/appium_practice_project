@@ -1,8 +1,6 @@
 import time
-
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
-
 from pages.login_page import LoginPage
 from utils.data_reader import read_excel
 from utils.screenshot import take_screenshot

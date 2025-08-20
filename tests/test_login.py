@@ -1,8 +1,6 @@
 import time
-
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
-
 from pages.login_page import LoginPage
 from utils.data_reader import read_excel
 from utils.screenshot import take_screenshot
@@ -19,7 +17,6 @@ class TestLogin(BaseTest):
             login_page = LoginPage(self.driver)
             login_page.open_login_menu()
             login_page.login(username, password)
-            # assert "Home" in self.driver.page_source
             time.sleep(5)
             assert self.home_element is not None, "Home screen not displayed after login"
         except Exception:
