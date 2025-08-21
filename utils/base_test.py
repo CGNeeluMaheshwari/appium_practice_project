@@ -5,16 +5,16 @@ from appium.webdriver.common.appiumby import AppiumBy
 @pytest.mark.usefixtures("driver")
 class BaseTest:
 
-    def scroll_down(driver):
+    def scroll_down(self):
         """Scroll down in the app."""
-        driver.find_element(
+        self.driver.find_element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiScrollable(new UiSelector().scrollable(true)).scrollForward()'
         )
 
-    def scroll_up(driver):
+    def scroll_up(self):
         """Scroll up in the app."""
-        driver.find_element(
+        self.driver.find_element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiScrollable(new UiSelector().scrollable(true)).scrollBackward()'
         )
